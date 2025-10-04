@@ -139,3 +139,29 @@ button:hover {
 .btn-back:hover {
     background: #0d47a1;
 }
+
+/* Tabelas de consulta */
+.consulta-table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(21, 101, 192, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.consulta-table th, .consulta-table td {
+    padding: 12px;
+    border: 1px solid #90caf9;
+    text-align: center;
+}
+
+.consulta-table th {
+    background: #1565c0;
+    color: white;
+}
+
+.consulta-table tr:nth-child(even) {
+    background: #e3f2fd;
+}
