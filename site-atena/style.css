@@ -165,3 +165,17 @@ button:hover {
 .consulta-table tr:nth-child(even) {
     background: #e3f2fd;
 }
+
+.btn-excluir {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-excluir:hover {
+  background-color: #c0392b;
+}

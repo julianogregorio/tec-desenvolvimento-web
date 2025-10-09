@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Autores - Palas Atena</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Autores - Livraria Palas Atena</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo-area">
-            <img  class="logo-placeholder" src="img/logo.png" alt="logo">
-        </div>
-        <h1>Livraria Palas Atena</h1>
-        <a href="index.html" class="logout">Sair</a>
-    </header>
+  <header class="header">
+    <h1> Consulta de Autores</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
 
-    <h2>Consulta de Autores</h2>
-    <table class="consulta-table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Nacionalidade</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Platão</td>
-                <td>Grego</td>
-            </tr>
-            <tr>
-                <td>Aristóteles</td>
-                <td>Grego</td>
-            </tr>
-        </tbody>
+  <main class="content">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Nacionalidade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-autores"></tbody>
     </table>
 
-    <div class="nav-buttons">
-        <a href="menu.html" class="btn-back">⬅ Voltar ao Menu</a>
+    <div class="botoes">
+      <button onclick="window.location.href='menu.html'">⬅ Voltar ao Menu</button>
     </div>
+  </main>
+
+  <script src="consultas.js"></script>
 </body>
 </html>
