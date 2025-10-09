@@ -1,0 +1,14 @@
+# Ignorar dependências do Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de cache temporários
+.cache/
+dist/
+build/
+
+# Configurações locais
+.env
+.vscode/
