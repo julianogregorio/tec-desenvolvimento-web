@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta de Autores - Livraria Palas Atena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1> Consulta de Autores</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <main class="content">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Nacionalidade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-autores"></tbody>
+    </table>
+
+    <div class="botoes">
+      <button onclick="window.location.href='menu.html'">⬅ Voltar ao Menu</button>
+    </div>
+  </main>
+
+  <script src="consultas.js"></script>
+</body>
+</html>
