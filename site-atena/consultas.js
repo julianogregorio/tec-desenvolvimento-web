@@ -1,8 +1,3 @@
-// =========================================
-// LIVRARIA PALAS ATENA - CONSULTAS DINÂMICAS
-// =========================================
-
-// Lê os dados do localStorage
 function carregarDoStorage() {
     return JSON.parse(localStorage.getItem("dadosLivraria")) || {
         livros: [],
@@ -11,21 +6,18 @@ function carregarDoStorage() {
     };
 }
 
-//  Salva os dados atualizados
 function salvarNoStorage(dados) {
     localStorage.setItem("dadosLivraria", JSON.stringify(dados));
 }
 
-// 🗑️ Função genérica para excluir registro por tipo e id
 function excluirRegistro(tipo, id) {
     let dados = carregarDoStorage();
     dados[tipo] = dados[tipo].filter(item => item.id !== id);
     salvarNoStorage(dados);
     alert("Registro excluído com sucesso!");
-    location.reload(); // atualiza a tabela
+    location.reload();
 }
 
-// 🧾 Monta tabelas dinâmicas
 function preencherTabela(dados, idTabela, campos, tipo) {
     const tabela = document.getElementById(idTabela);
     tabela.innerHTML = "";
@@ -49,7 +41,6 @@ function preencherTabela(dados, idTabela, campos, tipo) {
             linha.appendChild(celula);
         });
 
-        // Botão de exclusão
         const celulaExcluir = document.createElement("td");
         const botao = document.createElement("button");
         botao.textContent = "Exlcuir Registro";
@@ -62,9 +53,6 @@ function preencherTabela(dados, idTabela, campos, tipo) {
     });
 }
 
-// =========================================
-// CONSULTAS INDIVIDUAIS
-// =========================================
 const dados = carregarDoStorage();
 
 if (document.getElementById("tabela-livros")) {
@@ -79,9 +67,6 @@ if (document.getElementById("tabela-edicoes")) {
     preencherTabela(dados.edicoes, "tabela-edicoes", ["id", "livro", "ano", "editora", "numeroEdicao"], "edicoes");
 }
 
-// =========================================
-// LOGOUT
-// =========================================
 function logout() {
     window.location.href = "index.html";
 }

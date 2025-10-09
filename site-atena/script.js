@@ -1,8 +1,3 @@
-// ==============================
-// LIVRARIA PALAS ATENA - SISTEMA
-// ==============================
-
-//Armazenamento local (localStorage)
 function salvarNoStorage(dados) {
   localStorage.setItem("dadosLivraria", JSON.stringify(dados));
 }
@@ -15,23 +10,15 @@ function carregarDoStorage() {
   };
 }
 
-// Carrega os dados existentes (ou cria novos)
 let dados = carregarDoStorage();
 
-// ==============================
-// MONITORAMENTO DE FORMULÁRIOS
-// ==============================
 document.querySelectorAll("form").forEach(form => {
   form.addEventListener("submit", validarFormulario);
 });
 
-// ==============================
-// FUNÇÃO PRINCIPAL DE VALIDAÇÃO
-// ==============================
 function validarFormulario(event) {
   event.preventDefault();
 
-  // Campos genéricos: verificar se estão vazios
   const campos = event.target.querySelectorAll("input");
   let formularioValido = true;
 
@@ -46,9 +33,6 @@ function validarFormulario(event) {
     return;
   }
 
-  // ==========================
-  // FORMULÁRIO DE LOGIN
-  // ==========================
   if (event.target.id === "form-login") {
     const usuario = document.getElementById("usuario").value.trim();
     const senha = document.getElementById("senha").value.trim();
@@ -73,9 +57,6 @@ function validarFormulario(event) {
     return;
   }
 
-  // ==========================
-  // FORMULÁRIO DE LIVROS
-  // ==========================
   if (event.target.id === "form-livros") {
     const titulo = document.getElementById("titulo").value.trim();
     const isbn = document.getElementById("isbn").value.trim();
@@ -100,9 +81,6 @@ function validarFormulario(event) {
     return;
   }
 
-  // ==========================
-  // FORMULÁRIO DE EDIÇÕES
-  // ==========================
   if (event.target.id === "form-edicoes") {
     const livro = document.getElementById("livro").value.trim();
     const ano = document.getElementById("ano").value.trim();
@@ -134,9 +112,6 @@ function validarFormulario(event) {
     return;
   }
 
-  // ==========================
-  // FORMULÁRIO DE AUTORES
-  // ==========================
   if (event.target.id === "form-autores") {
     const nome = document.getElementById("nome").value.trim();
     const nacionalidade = document.getElementById("nacionalidade").value.trim();
@@ -164,6 +139,5 @@ function validarFormulario(event) {
     return;
   }
 
-  // Se tudo estiver certo e não for formulário especial
   event.target.submit();
 }
