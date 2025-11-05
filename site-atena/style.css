@@ -179,3 +179,33 @@ button:hover {
 .btn-excluir:hover {
   background-color: #c0392b;
 }
+
+/* Estilo para o campo select */
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #90caf9;
+    background-color: #f5faff;
+    color: #0d47a1;
+    font-size: 14px;
+    appearance: none; /* remove a seta padrão */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230d47a1" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:hover {
+    border-color: #42a5f5;
+}
+
+select:focus {
+    outline: none;
+    border-color: #1565c0;
+    box-shadow: 0 0 5px rgba(21, 101, 192, 0.5);
+    background-color: #e3f2fd;
+}

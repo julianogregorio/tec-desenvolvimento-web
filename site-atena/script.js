@@ -18,14 +18,11 @@ document.querySelectorAll("form").forEach(form => {
 
 function validarFormulario(event) {
   event.preventDefault();
-
-  const campos = event.target.querySelectorAll("input");
+  const campos = event.target.querySelectorAll("input, select");
   let formularioValido = true;
 
   campos.forEach(campo => {
-    if (campo.value.trim() === "") {
-      formularioValido = false;
-    }
+    if (campo.value.trim() === "") formularioValido = false;
   });
 
   if (!formularioValido) {
@@ -33,6 +30,7 @@ function validarFormulario(event) {
     return;
   }
 
+  // LOGIN
   if (event.target.id === "form-login") {
     const usuario = document.getElementById("usuario").value.trim();
     const senha = document.getElementById("senha").value.trim();
@@ -57,61 +55,7 @@ function validarFormulario(event) {
     return;
   }
 
-  if (event.target.id === "form-livros") {
-    const titulo = document.getElementById("titulo").value.trim();
-    const isbn = document.getElementById("isbn").value.trim();
-    const autor = document.getElementById("autor").value.trim();
-
-    if (!/^\d+$/.test(isbn)) {
-      alert("O campo ISBN deve conter apenas números.");
-      return;
-    }
-
-    const novoLivro = {
-      id: dados.livros.length + 1,
-      titulo: titulo,
-      isbn: isbn,
-      autor: autor
-    };
-
-    dados.livros.push(novoLivro);
-    salvarNoStorage(dados);
-    alert("Livro cadastrado com sucesso!");
-    event.target.reset();
-    return;
-  }
-
-  if (event.target.id === "form-edicoes") {
-    const livro = document.getElementById("livro").value.trim();
-    const ano = document.getElementById("ano").value.trim();
-    const editora = document.getElementById("editora").value.trim();
-    const numeroEdicao = document.getElementById("numero_edicao").value.trim();
-
-    if (!/^\d+$/.test(ano) || parseInt(ano) < 1) {
-      alert("O campo Ano deve conter apenas números maiores ou iguais a 1.");
-      return;
-    }
-
-    if (!/^\d+$/.test(numeroEdicao) || parseInt(numeroEdicao) < 1) {
-      alert("O campo Número da Edição deve conter apenas números maiores ou iguais a 1.");
-      return;
-    }
-
-    const novaEdicao = {
-      id: dados.edicoes.length + 1,
-      livro: livro,
-      ano: ano,
-      editora: editora,
-      numeroEdicao: numeroEdicao
-    };
-
-    dados.edicoes.push(novaEdicao);
-    salvarNoStorage(dados);
-    alert(" Edição cadastrada com sucesso!");
-    event.target.reset();
-    return;
-  }
-
+  // CADASTRO DE AUTORES
   if (event.target.id === "form-autores") {
     const nome = document.getElementById("nome").value.trim();
     const nacionalidade = document.getElementById("nacionalidade").value.trim();
@@ -128,16 +72,127 @@ function validarFormulario(event) {
 
     const novoAutor = {
       id: dados.autores.length + 1,
-      nome: nome,
-      nacionalidade: nacionalidade
+      nome,
+      nacionalidade
     };
 
     dados.autores.push(novoAutor);
     salvarNoStorage(dados);
     alert("Autor cadastrado com sucesso!");
     event.target.reset();
+    atualizarSelectAutores();
     return;
   }
 
-  event.target.submit();
+  // CADASTRO DE LIVROS
+  if (event.target.id === "form-livros") {
+    const titulo = document.getElementById("titulo").value.trim();
+    const isbn = document.getElementById("isbn").value.trim();
+    const idAutor = parseInt(document.getElementById("autor").value);
+
+    if (!/^\d+$/.test(isbn)) {
+      alert("O campo ISBN deve conter apenas números.");
+      return;
+    }
+
+    const novoLivro = {
+      id: dados.livros.length + 1,
+      titulo,
+      isbn,
+      id_autor: idAutor
+    };
+
+    dados.livros.push(novoLivro);
+    salvarNoStorage(dados);
+    alert("Livro cadastrado com sucesso!");
+    event.target.reset();
+    atualizarSelectLivros();
+    return;
+  }
+
+  // CADASTRO DE EDIÇÕES
+  if (event.target.id === "form-edicoes") {
+    const idLivro = parseInt(document.getElementById("livro").value);
+    const ano = document.getElementById("ano").value.trim();
+    const editora = document.getElementById("editora").value.trim();
+    const numeroEdicao = document.getElementById("numero_edicao").value.trim();
+
+    if (!/^\d+$/.test(ano) || parseInt(ano) < 1) {
+      alert("O campo Ano deve conter apenas números maiores ou iguais a 1.");
+      return;
+    }
+
+    if (!/^\d+$/.test(numeroEdicao) || parseInt(numeroEdicao) < 1) {
+      alert("O campo Número da Edição deve conter apenas números maiores ou iguais a 1.");
+      return;
+    }
+
+    const novaEdicao = {
+      id: dados.edicoes.length + 1,
+      id_livro: idLivro,
+      ano,
+      editora,
+      numeroEdicao
+    };
+
+    dados.edicoes.push(novaEdicao);
+    salvarNoStorage(dados);
+    alert("Edição cadastrada com sucesso!");
+    event.target.reset();
+    return;
+  }
 }
+
+/* ==== FUNÇÕES PARA POPULAR SELECTS ==== */
+
+function atualizarSelectAutores() {
+  const dados = carregarDoStorage();
+  const selectAutor = document.getElementById("autor");
+  if (!selectAutor) return;
+
+  selectAutor.innerHTML = "";
+  if (dados.autores.length === 0) {
+    const opt = document.createElement("option");
+    opt.textContent = "Nenhum autor cadastrado";
+    opt.disabled = true;
+    opt.selected = true;
+    selectAutor.appendChild(opt);
+    return;
+  }
+
+  dados.autores.forEach(autor => {
+    const opt = document.createElement("option");
+    opt.value = autor.id;
+    opt.textContent = `${autor.nome} (ID: ${autor.id})`;
+    selectAutor.appendChild(opt);
+  });
+}
+
+function atualizarSelectLivros() {
+  const dados = carregarDoStorage();
+  const selectLivro = document.getElementById("livro");
+  if (!selectLivro) return;
+
+  selectLivro.innerHTML = "";
+  if (dados.livros.length === 0) {
+    const opt = document.createElement("option");
+    opt.textContent = "Nenhum livro cadastrado";
+    opt.disabled = true;
+    opt.selected = true;
+    selectLivro.appendChild(opt);
+    return;
+  }
+
+  dados.livros.forEach(livro => {
+    const opt = document.createElement("option");
+    opt.value = livro.id;
+    opt.textContent = `${livro.titulo} (ID: ${livro.id})`;
+    selectLivro.appendChild(opt);
+  });
+}
+
+/* ==== CHAMAR AO CARREGAR ==== */
+window.onload = function () {
+  atualizarSelectAutores();
+  atualizarSelectLivros();
+};
