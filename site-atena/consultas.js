@@ -18,6 +18,18 @@ function excluirRegistro(tipo, id) {
   location.reload();
 }
 
+function atualizarRegistro(tipo, id) {
+  if (tipo === "autores") {
+    window.location.href = `editar_autor.html?id=${id}`;
+  }
+  if (tipo === "livros") {
+    window.location.href = `editar_livro.html?id=${id}`;
+  }
+  if (tipo === "edicoes") {
+    window.location.href = `editar_edicao.html?id=${id}`;
+  }
+}
+
 function preencherTabela(dados, idTabela, campos, tipo) {
   const tabela = document.getElementById(idTabela);
   tabela.innerHTML = "";
@@ -41,13 +53,40 @@ function preencherTabela(dados, idTabela, campos, tipo) {
       linha.appendChild(celula);
     });
 
-    const celulaExcluir = document.createElement("td");
-    const botao = document.createElement("button");
-    botao.textContent = "Excluir";
-    botao.className = "btn-excluir";
-    botao.onclick = () => excluirRegistro(tipo, item.id);
-    celulaExcluir.appendChild(botao);
-    linha.appendChild(celulaExcluir);
+    // célula de ações
+const celulaAcoes = document.createElement("td");
+
+// botão atualizar
+const botaoUpdate = document.createElement("button");
+botaoUpdate.textContent = "Atualizar";
+botaoUpdate.className = "btn-update";
+botaoUpdate.onclick = () => atualizarRegistro(tipo, item.id);
+celulaAcoes.appendChild(botaoUpdate);
+
+// botão excluir
+const botaoDelete = document.createElement("button");
+botaoDelete.textContent = "Excluir";
+botaoDelete.className = "btn-excluir";
+botaoDelete.onclick = () => excluirRegistro(tipo, item.id);
+celulaAcoes.appendChild(botaoDelete);
+
+linha.appendChild(celulaAcoes);
+    
+function atualizarRegistro(tipo, id) {
+  if (tipo === "autores") {
+    window.location.href = `editar_autor.html?id=${id}`;
+  }
+  if (tipo === "livros") {
+    window.location.href = `editar_livro.html?id=${id}`;
+  }
+  if (tipo === "edicoes") {
+    window.location.href = `editar_edicao.html?id=${id}`;
+  }
+}
+
+    
+    
+    
     tabela.appendChild(linha);
   });
 }
